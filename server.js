@@ -6,6 +6,9 @@ const express = require("express");
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
+// body parser is a middleware to access variable values
+// from forms of user input so we can use it on the server
+const bodyParser = require("body-parser");
 
 // set view engine
 app.set("view engine", "ejs");
@@ -18,6 +21,7 @@ app.set("layout", "layouts/layout");
 app.use(expressLayouts);
 // public files: styles, javascripts, imgs
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
@@ -32,6 +36,8 @@ db.once("open", () => {
 
 // setting of default router
 indexRouter = require("./routes/index");
+authorRouter = require("./routes/authors");
 app.use("/", indexRouter);
+app.use("/authors", authorRouter);
 
 app.listen(process.env.PORT || 3000);
