@@ -37,7 +37,9 @@ db.once("open", () => {
 // setting of default router
 indexRouter = require("./routes/index");
 authorRouter = require("./routes/authors");
+bookRouter = require("./routes/books");
 app.use("/", indexRouter);
 app.use("/authors", authorRouter);
+app.use("/books", bookRouter);
 
 app.listen(process.env.PORT || 3000);

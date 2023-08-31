@@ -27,6 +27,11 @@ router.get("/", async (req, res) => {
 
 // new authors (just the forms page to create)
 router.get("/new", (req, res) => {
+  // The primary purpose of providing author: new Author() in this context would be to maintain consistency in the form rendering across different routes.
+  // If you have other routes that handle editing or updating authors, those routes might use a similar form template as the "new author" form.
+  // In such cases, passing an instance of Author to the view can help keep the codebase consistent and reduce potential code duplication.
+  // If you don't foresee using the same form template for other routes or if the "new author" form has unique requirements, you can omit the author: new Author() part from the /new GET route without any adverse effects.
+  // The form will render empty, and users will still be able to fill in the details manually.
   res.render("authors/new", { author: new Author() });
 });
 
